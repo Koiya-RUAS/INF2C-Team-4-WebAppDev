@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uitrusting</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/armory.css" />
+</head>
+<body>
+    <main>
+        <div class="container">
+            <div class="armory-header">
+                <div class="top-title">
+                    <h1>Uitrusting</h1>
+                </div>
+                <div class="top-actions">
+                    <button type="button" class="add-gear-btn" id="addGearBtn">
+                        + Uitrusting Toevoegen
+                    </button>
+                </div>
+            </div>  
+        </div>
+    </main>
+    <div class="modal-overlay" id="gearModal" aria-hidden="true">
+        <div class="gear-modal" role="dialog" aria-modal="true" aria-labelledby="gearModalTitle">
+            <header class="modal-header">
+                <div class="modal-title">
+                    <p class="modal-eyebrow">Uitrusting</p>
+                    <h2 id="gearModalTitle">Uitrusting Toevoegen</h2>
+                </div>
+
+                <button type="button" class="modal-close" id="closeGearModal" aria-label="Close modal">&times;</button>
+            </header>
+
+            <form id="gearForm">
+                <div class="form-group">
+                    <label for="gearName">Naam</label>
+                    <input type="text" id="gearName" name="name" placeholder="Naam van de uitrusting" required>
+                </div>
+                <div class="form-group">
+                    <label for="gearKind">Soort</label>
+                    <select id="gearKind" name="kind" required>
+                        <option value="" selected disabled>Selecteer Soort</option>
+                        <option value="rope">Touw</option>
+                        <option value="lantern">Lantaarn</option>
+                        <option value="sword">Zwaard</option>
+                        <option value="shield">Schild</option>
+                        <option value="crossbow">Kruisboog</option>
+                        <option value="lockpick">Sloten Openen</option>
+                        <option value="beartrap">Berghaak</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                     <label for="gearCondition">Toestand</label>
+                     <select id="gearCondition" name="condition" required>
+                        <option value="" selected disabled>Selecteer Toestand</option>
+                        <option value="new">Nieuw</option>
+                        <option value="good">Goed</option>
+                        <option value="worn">Versleten</option>
+                        <option value="damaged">Beschadigd</option>
+                     </select>
+                </div>
+                <fieldset class="form-group checkbox-group">
+                    <legend>Eigenschappen</legend>
+
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="gearDangerous" name="dangerous">
+                        <label for="gearDangerous">Gevaarlijke Uitrusting</label>
+                    </div>
+                    <p class="form-help">
+                        Gevaarlijke uitrusting kan alleen uitgeleend worden aan ervaren leden.
+                    </p>
+                </fieldset>
+
+                <footer class="modal-actions">
+                    <button type="button" class="cancel-btn" id="cancelGearModal">
+                        Annuleren
+                    </button>
+                    <button type="submit" class="save-gear-btn">Uitrusting Toevoegen</button>
+                </footer>
+            </form> 
+        </div>
+    </div>
+<script src="../js/models/modal.js"></script>
+<script src="../js/armory.js"></script>
+</body>
+</html>
