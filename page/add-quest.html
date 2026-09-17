@@ -3,26 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quest</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../style/add-quest.css">
+  <title>Quest aanmaken</title>
 </head>
 <body>
   <h1>Quest aanmaken</h1>
   <p>Hier kan je een quest aanmaken</p>
+
   <form>
     <label for="village-name">Dorp:</label><br>
     <input type="text" id="village-name" name="village-name"><br>
 
     <label for="description-quest">Beschrijving gebied:</label><br>
-    <input type="text" name="description-quest" rows="10" cols="60"><br>
-    <!-- hier wezen -->
-     <label for="date-quest">Vertrekdatum</label><br>
-    <input type="date" name="date-quest"><br>
-    <label for="days-quest">Aantal dagen:</label><br>
-    <input type="number" name="days-quest"><br>
-    <label for="positions-quest">Aantal plekken:</label><br>
-    <input type="number" name="positions-quest"><br>
-  </form>
+    <textarea id="description-quest" name="description-quest" rows="2" cols="60"></textarea><br>
 
-  <button>Maak quest aan</button>
+    <details id="creature-details">
+    <summary>
+      <input type="checkbox" name="creature" id="creature" onchange="toggleDetails()">
+      <label for="creature"><strong>Is er een wezen aanwezig?</strong></label>
+    </summary>
+    <label for="description-creature">Beschrijving wezen:</label><br>
+    <textarea name="description-creature" rows="2" cols="60"></textarea>
+    </details>
+
+    <label for="date-quest">Vertrekdatum</label><br>
+    <input type="date" id="date-start" name="date-start" onchange="calculateDays()"><br>
+
+    <label for="date-end">Einddatum:</label><br>
+    <input type="date" id="date-end" name="date-end" onchange="calculateDays()"><br>
+
+    <label for="days-quest">Aantal dagen:</label><br>
+    <p id="days-quest"></p>
+
+    <label for="positions-quest">Aantal plekken:</label><br>
+    <input type="number" id="positions-quest" name="positions-quest"><br>
+
+    <button type="button" onclick="window.location.href='../index.html'">Maak quest aan</button>
+  </form>
 </body>
 </html>
+
+<script>
+  function toggleDetails() {
+    const checkbox = document.getElementById('creature');
+    const details = document.getElementById('creature-details');
+    details.open = checkbox.checked;
+  }
+
+  function calculateDays() {
+    const startDateVal = document.getElementById('date-start').value;
+    const endDateVal = document.getElementById('date-end').value;
+    const daysInput = document.getElementById('days-quest');
+
+    if (startDateVal && endDateVal) {
+      const start = new Date(startDateVal);
+      const end = new Date(endDateVal);
+
+      const differenceInTime = end.getTime() - start.getTime();
+
+      const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+
+      if (differenceInDays >= 0) {
+        daysInput.textContent = differenceInDays;
+
+      } else {
+        daysInput = "";
+      }
+    }
+  }
+</script>
