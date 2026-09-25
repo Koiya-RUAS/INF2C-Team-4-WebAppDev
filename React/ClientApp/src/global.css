@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=UnifrakturMaguntia&display=swap');
+:root {
+    --color-bg: #efe6d0;
+    --color-bg-subtle: #eadfc6;
+    --color-surface: #f7efd8;
+    --color-surface-raised: #efe2c3;
+    
+    --color-text: #2a2119;
+    --color-text-muted: #6b5b45;
+    
+    --color-nav: #4a423a;
+    --color-nav-hover: #3e362f;
+    
+    --color-border: #c8b488;
+
+    --color-primary: #8a3b2c;
+    --color-primary-hover: #a0442f;
+    --color-primary-light: #b25540;
+    --color-primary-dark: #6f2c1f;
+
+    --color-success: #4d5a3a;
+    --color-success-hover: #3b472d;
+
+    --color-danger: #b42318;
+    --color-danger-hover: #8f1d14;
+} 
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body  {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Spectral', serif;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', serif;
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--color-primary);
+}
+
+a:hover {
+    color: var(--color-primary-hover);
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
