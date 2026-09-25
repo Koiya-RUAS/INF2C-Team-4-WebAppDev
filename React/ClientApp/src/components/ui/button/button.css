@@ -1,0 +1,99 @@
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 1.4rem;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    text-decoration: none;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn:focus-visible {
+    outline: 3px solid var(--color-primary-light);
+    outline-offset: 2px;
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: #fff;
+    border-color: var(--color-primary);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-text-muted);
+    border-color: var(--color-border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background-color: var(--color-bg-subtle);
+    color: var(--color-text);
+    border-color: var(--color-border);
+}
+
+.btn-small {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.8rem;
+}
+
+.btn-medium {
+    padding: 0.7rem 1.4rem;
+    font-size: 0.9rem;
+}
+
+.btn-full-width {
+    width: 100%;
+}
+
+.btn-danger {
+    background-color: var(--color-danger);
+    color: #fff;
+    border-color: var(--color-danger);
+}
+
+.btn-danger:hover:not(:disabled) {
+    background-color: var(--color-danger-hover);
+    border-color: var(--color-danger-hover);
+}
+
+.btn-success {
+    background-color: var(--color-success);
+    color: #fff;
+    border-color: var(--color-success);
+}
+
+.btn-success:hover:not(:disabled) {
+    background-color: var(--color-success-hover);
+    border-color: var(--color-success-hover);
+}
+
+
+@media (max-width: 480px) {
+    .btn {
+        padding: 0.6rem 1rem;
+    }
+
+    .btn-small {
+        padding: 0.4rem 0.75rem;
+    }
+}
