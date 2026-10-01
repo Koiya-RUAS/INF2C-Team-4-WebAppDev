@@ -1,0 +1,80 @@
+.gear-form .form-group {
+    margin-bottom: 1.25rem;
+}
+
+.gear-form label,
+.gear-form legend {
+    color: var(--color-text);
+    font-family: 'Jetbrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.gear-form .form-group > label {
+    display: block;
+    margin-bottom: 0.45rem;
+}
+
+.gear-form input[type="text"],
+.gear-form select {
+    width: 100%;
+    padding: 0.75rem 0.85rem;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-family: 'Spectral', serif;
+    font-size: 1rem;
+}
+
+.gear-form input[type="text"]:focus,
+.gear-form select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(138, 59, 44, 0.12);
+    outline: none;
+}
+
+.checkbox-group {
+    padding: 1rem;
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+}
+
+.checkbox-group legend {
+    padding: 0 0.35rem;
+
+}
+
+.checkbox-option {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+}
+
+.checkbox-option input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-primary);
+}
+
+.form-help {
+    margin-top: 0.4rem;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+}
+
+@media (min-width: 600px) {
+    .modal-actions {
+        flex-direction: row;
+    }
+}
