@@ -1,0 +1,29 @@
+.armory-page {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+
+}
+
+.armory-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.top-title h1 {
+    margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+    .armory-page{
+        padding: 1.25rem;
+    }
+    .armory-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
