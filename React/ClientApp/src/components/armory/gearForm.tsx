@@ -1,15 +1,28 @@
 import Button from "../ui/button/button";
+import { saveGearItem, type GearItem } from "../../services/gearRepository";
 import "./gearForm.css";
 
 interface GearFormProps {
     onCancel: () => void;
+    onSaved: (item: GearItem) => void;
 }
 
-function GearForm({ onCancel }: GearFormProps) {
+function GearForm({ onCancel, onSaved }: GearFormProps) {
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        const item: GearItem = {
+            id: crypto.randomUUID(),
+            name: String(formData.get("name")).trim(),
+            kind: String(formData.get("kind")),
+            condition: String(formData.get("condition")),
+            dangerous: formData.get("dangerous") === "on",
+            retired: false,
+        }
+        saveGearItem(item);
+        onSaved(item);
 
-        // Hier komt het opslaan logica
+        event.currentTarget.reset();
     }
 
     return (
@@ -56,7 +69,7 @@ function GearForm({ onCancel }: GearFormProps) {
             </fieldset>
             <div className="modal-actions">
                 <Button type="submit">Opslaan</Button>
-                <Button variant="secondary" onClick={onCancel}>Annuleren</Button>
+                <Button type ="button" variant="secondary" onClick={onCancel}>Annuleren</Button>
             </div>
         </form>
     )
