@@ -1,8 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+export default function AddQuest() {
+  return (
+    <div className="container">
+      <div className="quest-header">
+        <h1>Quest Aanmaken</h1>
+      </div>
+
+      <form className="quest-form">
+        <div className="form-group">
+          <label for="village-name">Dorp</label> 
+          <input type="text" id="village-name" name="village-name" required></input> 
+        </div> 
+
+      </form>
+    </div>
+  );
+}
+
   <link rel="stylesheet" href="../css/global.css">
   <link rel="stylesheet" href="../css/add-quest.css">
   <title>Quest aanmaken</title>
@@ -87,7 +100,7 @@
       const end = new Date(endDateVal);
 
       const differenceInTime = end.getTime() - start.getTime();
-
+      
       const differenceInDays = differenceInTime / (1000 * 3600 * 24);
 
       if (differenceInDays >= 0) {
