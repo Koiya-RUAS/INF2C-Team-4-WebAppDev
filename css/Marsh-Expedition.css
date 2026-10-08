@@ -1,0 +1,25 @@
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 40px;
+    background-color: var(--color-nav);
+    border: 1px solid var(--color-primary);
+    border-radius: 30px;
+    margin: 20px auto;
+    width: 60%;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
