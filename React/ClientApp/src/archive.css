@@ -32,6 +32,11 @@
     color: var(--color-primary-hover);
 }
 
+.pages-on-menu a.active {
+    color: var(--color-primary-light);
+    font-weight: 600
+}
+
 .content {
     flex: 1;
     padding: 50px;

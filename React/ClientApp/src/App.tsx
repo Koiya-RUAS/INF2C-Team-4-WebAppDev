@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from "react-router-dom";
+import { NavLink, Link, Route, Routes } from "react-router";
 import ArmoryPage from "./pages/armoryPage";
 import "./global.css";
 import QuestPage from "./pages/questPage";
@@ -44,12 +44,12 @@ function App() {
         <h2>Hollowmere</h2>
 
         <div className="pages-on-menu">
-          <Link to="/">Hall</Link>
-          <Link to="/armory">Armory</Link>
-          <Link to="/quest">Quest Board</Link>
-          <Link to="/yard">Yard</Link>
-          <Link to="/archive">Archive</Link>
-          <Link to="/bestiary">Bestiary</Link>
+          <NavLink to="/">Hall</NavLink>
+          <NavLink to="/armory">Armory</NavLink>
+          <NavLink to="/quest">Quest Board</NavLink>
+          <NavLink to="/yard">Yard</NavLink>
+          <NavLink to="/archive">Archive</NavLink>
+          <NavLink to="/bestiary">Bestiary</NavLink>
         </div>
       </nav>
 
