@@ -1,0 +1,75 @@
+.gearcard {
+    gap: 0.75rem;
+}
+
+.gear-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.gear-card-label {
+    color: var(--color-text-muted);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.gear-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.gear-card-title {
+    margin-bottom: 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 1.4rem;
+    line-height: 1.2;
+}
+
+.gear-card-image {
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+}
+
+.gear-card-image .media-frame {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+.gear-card-facts {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.gear-card-fact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.gear-card-fact dt {
+    color: var(--color-text-muted);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.gear-card-fact dd {
+    margin: 0;
+}
+
+.gear-card-fact-end {
+    align-items: flex-end;
+    text-align: right;
+}
