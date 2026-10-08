@@ -1,3 +1,8 @@
+import { Route, Routes } from "react-router-dom";
+import ArmoryPage from "./pages/armoryPage";
+import "./global.css";
+import QuestPage from "./pages/questPage";
+
 function App() {
   return (
       <div className="page">
@@ -47,5 +52,4 @@ function App() {
       </div>
   )
 }
-
-export default App
+export default App;

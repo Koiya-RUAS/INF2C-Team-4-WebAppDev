@@ -19,8 +19,10 @@
     --color-primary-dark: #6f2c1f;
 
     --color-success: #4d5a3a;
+    --color-success-hover: #3b472d;
 
-    --color-danger: #8a3b2c;
+    --color-danger: #b42318;
+    --color-danger-hover: #8f1d14;
 } 
 
 *, *::before, *::after {
