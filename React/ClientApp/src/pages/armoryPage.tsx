@@ -27,7 +27,7 @@ function ArmoryPage() {
         eyebrow="Uitrusting"
         title="Uitrusting toevoegen"
       >
-        <GearForm onCancel={closeModal} />
+        <GearForm onCancel={closeModal} onSaved={closeModal} />
       </Modal>
     </main>
   )
