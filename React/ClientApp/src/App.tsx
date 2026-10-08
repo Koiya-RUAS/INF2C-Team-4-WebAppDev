@@ -2,6 +2,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import ArmoryPage from "./pages/armoryPage";
 import "./global.css";
 import QuestPage from "./pages/questPage";
+import Button from "./components/ui/button/button";
 
 function ArchivePage() {
   return (
@@ -12,7 +13,7 @@ function ArchivePage() {
           <p>Your Reports</p>
         </div>
 
-        <button>Add Report</button>
+        <Button>Add Report</Button>
       </div>
 
       <div className="reports">
