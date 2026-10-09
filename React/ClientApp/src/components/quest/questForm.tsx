@@ -2,6 +2,34 @@ import { useState, type FormEvent, useEffect } from "react";
 import Button from "../ui/button/button";
 import "./questForm.css";
 
+const temporaryCreatures = [
+  { id: "marsh-wyvern", name: "Wezen 1", region: "Swamp", dangerous: true },
+  {
+    id: "mill-ghost",
+    name: "Wezen 2",
+    region: "Plains",
+    dangerous: true,
+  },
+  {
+    id: "forest-road-wolves",
+    name: "Wezen 3",
+    region: "Forest",
+    dangerous: true,
+  },
+  {
+    id: "northern-range-wolves",
+    name: "Wezen 4",
+    region: "Snowy Taiga",
+    dangerous: true,
+  },
+  {
+    id: "western-meadows-rabbit",
+    name: "Wezen 5",
+    region: "Meadow",
+    dangerous: false,
+  },
+];
+
 interface QuestFormProps {
   onCancel: () => void;
 }
@@ -38,14 +66,14 @@ function QuestForm({ onCancel }: QuestFormProps) {
     <form className="quest-form" onSubmit={handleSubmit}>
       <div className="form-group">
         <label htmlFor="village-name">Dorp</label>
-        <input type="text" id="village-name" name="village-name" required />
+        <input type="text" id="village-name" name="village" required />
       </div>
 
       <div className="form-group">
         <label htmlFor="description-quest">Beschrijving gebied</label>
         <textarea
           id="description-quest"
-          name="description-quest"
+          name="areaDescription"
           rows={3}
           required
         />
@@ -66,12 +94,21 @@ function QuestForm({ onCancel }: QuestFormProps) {
 
         {hasCreature && (
           <div className="form-group creature-details">
-            <label htmlFor="description-creature">Beschrijving wezen</label>
-            <textarea
-              id="description-creature"
-              name="description-creature"
-              rows={3}
-            />
+            <label htmlFor="creature-choice">Wezen uit de bestiary</label>
+            <select
+              id="creature-choice"
+              name="creature"
+              defaultValue=""
+              required
+            >
+              <option value="">Kies een wezen</option>
+              {temporaryCreatures.map((creature) => (
+                <option key={creature.id} value={creature.id}>
+                  {creature.name} - {creature.region}
+                  {creature.dangerous ? " (gevaarlijk)" : ""}
+                </option>
+              ))}
+            </select>
           </div>
         )}
       </fieldset>
@@ -119,7 +156,7 @@ function QuestForm({ onCancel }: QuestFormProps) {
           <input
             type="number"
             id="positions-quest"
-            name="positions-quest"
+            name="partySize"
             min={1}
             required
           />

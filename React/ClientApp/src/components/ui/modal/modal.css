@@ -13,12 +13,19 @@
 .modal-dialog {
     width: 100%;
     max-width: 600px;
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
+    scrollbar-width: none;
     background-color: var(--color-surface-raised);
     border: 1px solid var(--color-border);
     border-radius: 6px;
     box-shadow: 0 15px 40px rgba(42, 33, 25, 0.25);
     transform: translateY(-10px);
     animation: modal-dialog-in 0.2s ease forwards;
+}
+
+.modal-dialog::-webkit-scrollbar {
+    display: none;
 }
 
 .modal-header {
