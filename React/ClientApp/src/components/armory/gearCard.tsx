@@ -3,6 +3,7 @@ import Badge from "../ui/badge/badge"
 import Card from "../ui/card/card"
 import "./gearCard.css"
 import PlaceholderImage from "../ui/placeholderImage/placeholderImage"
+import { Link } from "react-router"
 
 interface GearCardProps {
     gear: GearItem;
@@ -37,6 +38,9 @@ function GearCard({ gear }: GearCardProps) {
                     <dd>{gear.retired ? "Buiten dienst" : "Beschikbaar"}</dd>
                 </div>
             </dl>
+            <Link className="gear-card-action" to={`/armory/${gear.id}`}>
+                Bekijk details
+            </Link>
         </Card>
     )
 }
