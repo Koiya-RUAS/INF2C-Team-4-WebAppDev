@@ -43,8 +43,18 @@ const dummyGear: GearItem[] = [
   }
 ]
 
+const viewModeStorageKey = "armory-view-mode";
+
 function ArmoryPage() {
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [viewMode, setViewMode] = useState<"grid" | "list">(() => {
+    if (window.matchMedia("(max-width: 860px)").matches) {
+      return "grid";
+    }
+
+    const savedViewMode = localStorage.getItem(viewModeStorageKey);
+
+    return savedViewMode === "list" ? "list" : "grid";
+  });
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 860px)");
@@ -61,6 +71,11 @@ function ArmoryPage() {
       mediaQuery.removeEventListener("change", handleScreenChange);
     }
   }, [])
+
+  useEffect(() => {
+    localStorage.setItem(viewModeStorageKey, viewMode);
+  }, [viewMode]);
+
   const {
     isOpen,
     openModal,
