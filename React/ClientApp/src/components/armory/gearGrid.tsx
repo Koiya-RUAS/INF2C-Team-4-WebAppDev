@@ -4,16 +4,17 @@ import "./gearGrid.css"
 
 interface GearGridProps {
     items: GearItem[];
+    viewMode: "grid" | "list";
 }
 
-function GearGrid({ items }: GearGridProps) {
+function GearGrid({ items, viewMode }: GearGridProps) {
     if (items.length === 0) {
         return(
             <p className="gear-grid-empty">Geen uitrusting gevonden. Voeg er eerst 1 toe</p>
         )
     }
     return (
-        <ul className="gear-grid">
+        <ul className={`gear-grid gear-grid-${viewMode}`}>
             {items.map(item => (
                 <li key={item.id}>
                     <GearCard gear={item} />

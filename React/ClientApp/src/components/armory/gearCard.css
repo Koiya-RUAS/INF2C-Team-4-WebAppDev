@@ -98,3 +98,7 @@
     background-color: var(--color-primary);
     color: var(--color-surface);
 }
+
+.gear-card-row-badge {
+    display: none;
+}

@@ -13,15 +13,31 @@ function GearCard({ gear }: GearCardProps) {
     return (
         <Card className="gear-card">
             <div className="gear-card-top">
-                <span className="gear-card-label">{gear.kind}</span>
-                {gear.dangerous ? (
-                    <Badge variant="danger">Gevaarlijk</Badge>
-                ) : (
-                    <Badge>Veilig</Badge>
-                )}
+                <span className="gear-card-label">
+                    {gear.kind}
+                </span>
+
+                <span className="gear-card-column-badge">
+                    {gear.dangerous ? ( 
+                        <Badge variant="danger">Gevaarlijk</Badge>
+                    ) : (
+                        <Badge>Veilig</Badge>
+                    )}
+                </span>
             </div>
+
             <div className="gear-card-content">
-                <h3 className="gear-card-title">{gear.name}</h3>
+                <div className="gear-card-title-row">
+                    <h3 className="gear-card-title">{gear.name}</h3>
+
+                    <span className="gear-card-row-badge">
+                        {gear.dangerous ? (
+                            <Badge variant="danger">Gevaarlijk</Badge>
+                        ) : (
+                            <Badge>Veilig</Badge>
+                        )}
+                    </span>
+                </div>
             </div>
 
             <div className="gear-card-image">
