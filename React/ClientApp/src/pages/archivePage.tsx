@@ -1,8 +1,8 @@
+import "./archivePage.css";
 import { useState } from "react";
 import Button from "../components/ui/button/button";
 import Modal from "../components/ui/modal/modal";
 import ReportsForm from "../components/archive/reportsForm";
-
 
 interface Report {
   id: string;
@@ -54,11 +54,21 @@ function ArchivePage() {
     closeModal();
   }
 
+  function handleFileReport(id: string) {
+    setReports((currentReports) => 
+    currentReports.map((report) => 
+    report.id === id 
+      ? {...report, status: "filed"} 
+      : report
+      )
+    );
+  }
+
  
 
   return (
-    <>
-      <div className="page-header">
+    <main className="archive-page">
+      <header className="archive-page-header">
         <div>
           <h1>Archive</h1>
           <p>Your Reports</p>
@@ -67,7 +77,7 @@ function ArchivePage() {
         <Button onClick={openModal}>
           Add Report
         </Button>
-      </div>
+      </header>
 
       <Modal
         isOpen={isOpen}
@@ -76,8 +86,8 @@ function ArchivePage() {
         title="Report toevoegen"
       >
         <ReportsForm
-          onCancel={closeModal}
-          onSaved={handleSaveReport}
+        onCancel={closeModal}
+        onSaved={handleSaveReport}
         />
       </Modal>
 
@@ -85,15 +95,34 @@ function ArchivePage() {
         {reports.map((report) => (
           <div className="report-card" key={report.id}>
             <h3>{report.description}</h3>
-            <p>Written by: {report.writtenBy ?? "You"}</p>
-            <p>Region: {report.region}</p>
-            <p>Departure: {report.departureDate}</p>
-            <p>Status: {report.status}</p>
+            
+            <div className="report-card-details">
+              <p>
+                Written by: {report.writtenBy ?? "You"}
+              </p>
+              <p>Region: {report.region}</p>
+              <p>Departure: {report.departureDate}</p>
+            </div>
+
+            <div className="report-card-footer">
+              <span
+              className={`report-status report-status-${report.status}`}
+            >
+              {report.status}
+              </span>
+
+            {report.status === "draft" && (
+              <Button
+              onClick={() => handleFileReport(report.id)}
+              >
+                File report
+              </Button>
+            )}
           </div>
+        </div>
         ))}
       </div>
-    </>
+    </main>
   );
 }
-
 export default ArchivePage;
