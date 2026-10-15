@@ -41,7 +41,7 @@ function GearCard({ gear }: GearCardProps) {
             </div>
 
             <div className="gear-card-image">
-                <PlaceholderImage alt={gear.name} />
+                <PlaceholderImage src={gear.imageUrl} alt={`Afbeelding van ${gear.name}`} />
             </div>
 
             <dl className="gear-card-facts">

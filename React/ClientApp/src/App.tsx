@@ -60,7 +60,7 @@ function App() {
             <Route path="/armory" element={<ArmoryPage />} />
             <Route path="/quest" element={<QuestPage />} />
             <Route path="/archive" element={<ArchivePage />} />
-            <Route path="/armory/test" element={<GearDetailPage />} />
+            <Route path="/armory/:id" element={<GearDetailPage />} />
         </Routes>
       </main>
     </div>

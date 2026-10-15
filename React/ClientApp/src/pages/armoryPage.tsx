@@ -3,50 +3,10 @@ import Modal from "../components/ui/modal/modal";
 import GearForm from "../components/armory/gearForm";
 import useModal from "../hooks/useModal";
 import "./armoryPage.css";
-import type { GearItem } from "../services/gearRepository";
 import GearGrid from "../components/armory/gearGrid";
 import { Grid2x2, List } from "lucide-react";
 import { useState, useEffect } from "react";
-
-const dummyGear: GearItem[] = [
-  {
-    id: "1",
-    name: "Rope",
-    kind: "rope",
-    condition: "good",
-    dangerous: false,
-    retired: false,
-    loanedTo: null
-  },
-  {
-    id: "2",
-    name: "Lantern",
-    kind: "lantern",
-    condition: "new",
-    dangerous: false,
-    retired: false,
-    loanedTo: null
-  },
-  {
-    id: "3",
-    name: "Sword",
-    kind: "sword",
-    condition: "worn",
-    dangerous: true,
-    retired: false,
-    loanedTo: null
-  },
-  {
-    id: "4",
-    name: "Shield",
-    kind: "shield",
-    condition: "damaged",
-    dangerous: false,
-    retired: true,
-    loanedTo: null
-  } 
-]
-
+import { dummyGear } from "../services/gearRepository";
 const viewModeStorageKey = "armory-view-mode";
 
 function ArmoryPage() {

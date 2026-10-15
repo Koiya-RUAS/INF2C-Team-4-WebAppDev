@@ -10,7 +10,7 @@ function GearDetailImage({ gear }: GearDetailImageProps) {
     return (
         <section className="gear-detail-image-section" aria-label="Afbeelding uitrusting">
             <div className="gear-detail-image">
-                <PlaceholderImage alt={`Afbeelding van ${gear.name}`} /> 
+                <PlaceholderImage src={gear.imageUrl} alt={`Afbeelding van ${gear.name}`} /> 
             </div>
         </section>
     )
