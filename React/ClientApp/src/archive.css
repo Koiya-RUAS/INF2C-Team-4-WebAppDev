@@ -113,3 +113,30 @@
     border-radius: 10px;
 }
 
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 280px;
+        z-index: 1000;
+        transition: width 0.3s ease;
+        padding: 30px 20px;
+        overflow: hidden;
+    }
+
+    .sidebar--collapsed {
+        width: 64px;
+    }
+    .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 999;
+    }
+
+    .content {
+        padding-left: calc(64px + 20px);
+    }
+}

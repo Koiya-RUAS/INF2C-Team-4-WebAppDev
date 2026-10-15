@@ -4,8 +4,8 @@ import "./global.css";
 import QuestPage from "./pages/questPage";
 import Button from "./components/ui/button/button";
 import GearDetailPage from "./pages/detailGear/gearDetailPage";
-import { useState } from "react";
-import { Home, Sword, ScrollText, Trees, BookOpen, Bug, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Home, Sword, ScrollText, Trees, BookOpen, Bug, ChevronLeft, ChevronRight, X } from "lucide-react";
 
 const navItems = [
   { to: "/", label: "Hall", icon: Home },
@@ -50,20 +50,35 @@ function ArchivePage() {
 }
 
 function App() {
-  const [collapsed, setCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  const [collapsed, setCollapsed] = useState(() => window.innerWidth < 768);
 
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (mobile) setCollapsed(true);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  })
   return (
     <div className="page">
-      <nav className={`sidebar${collapsed ? " sidebar--collapsed" : ""}`}>
+      {isMobile && (
+        <div className="sidebar-backdrop" onClick={() => setCollapsed(true)} />
+      )}
+      <nav className={`sidebar${collapsed ? " sidebar--collapsed" : ""}${isMobile ? " sidebar--mobile" : ""}`}>
         <div className="sidebar-header">
           {!collapsed && <h2>Hollowmere</h2>}
           <button className="sidebar-toggle" onClick={() => setCollapsed((c) => !c)} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}>
-            {collapsed ? <ChevronRight size={20} strokeWidth={1.8} /> : <ChevronLeft size={20} strokeWidth={1.8} />}              
+            {isMobile
+            ? (collapsed ? <ChevronRight size={20} strokeWidth={1.8} /> : <X size={20} strokeWidth={1.8} />)
+            : (collapsed ? <ChevronRight size={20} strokeWidth={1.8} /> : <ChevronLeft size={20} strokeWidth={1.8} />)}
           </button>
         </div>
         <div className="pages-on-menu">
           {navItems.map(({to, label, icon: Icon}) => (
-            <NavLink key={to} to={to} title={collapsed ? label : undefined}>
+            <NavLink key={to} to={to} title={collapsed ? label : undefined} onClick={() => isMobile && setCollapsed(true)}>
               <Icon size={18} className="nav-icon" />
               {!collapsed && <span>{label}</span>}
             </NavLink>
