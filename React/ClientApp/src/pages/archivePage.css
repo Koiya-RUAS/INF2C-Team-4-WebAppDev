@@ -92,6 +92,21 @@
     background-color: var(--color-surface-raised);
 }
 
+.report-card-link {
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.report-card-link:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.file-report-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+}
+
 @media (max-width: 600px) {
     .archive-page {
         padding: 1.2rem;

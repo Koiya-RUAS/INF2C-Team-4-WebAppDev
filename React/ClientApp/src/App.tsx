@@ -1,7 +1,8 @@
-import { NavLink, Link, Route, Routes } from "react-router";
+import { NavLink, Route, Routes } from "react-router";
 import ArmoryPage from "./pages/armoryPage";
 import QuestPage from "./pages/questPage";
 import ArchivePage from "./pages/archivePage";
+import ReportDetailsPage from "./pages/reportDetailsPage";
 import "./global.css";
 
 function App() {
@@ -25,6 +26,10 @@ function App() {
             <Route path="/armory" element={<ArmoryPage />} />
             <Route path="/quest" element={<QuestPage />} />
             <Route path="/archive" element={<ArchivePage />} />
+            <Route
+              path="/archive/:reportId"
+              element={<ReportDetailsPage />}
+            />
         </Routes>
       </main>
     </div>

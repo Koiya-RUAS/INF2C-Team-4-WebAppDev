@@ -3,16 +3,8 @@ import { useState } from "react";
 import Button from "../components/ui/button/button";
 import Modal from "../components/ui/modal/modal";
 import ReportsForm from "../components/archive/reportsForm";
-
-interface Report {
-  id: string;
-  region: string;
-  departureDate: string;
-  description: string;
-  status: "draft" | "filed";
-  writtenBy?: string;
-}
-
+import type { Report } from "../components/archive/reports";
+import { Link } from "react-router";
 
 
 function ArchivePage() {
@@ -34,7 +26,9 @@ function ArchivePage() {
       description: "The Marsh Expedition",
       status: "filed",
       writtenBy: "Aragorn",
+      encounters: [],
     },
+
     {
       id: "example-2",
       region: "Ford Valley",
@@ -42,6 +36,7 @@ function ArchivePage() {
       description: "The Haunted Mill",
       status: "draft",
       writtenBy: "Legolas",
+      encounters: [],
     },
   ]);
 
@@ -94,7 +89,15 @@ function ArchivePage() {
       <div className="reports">
         {reports.map((report) => (
           <div className="report-card" key={report.id}>
-            <h3>{report.description}</h3>
+            <h3>
+                <Link
+                to={`/archive/${report.id}`}
+                state={{ report }}
+                className="report-card-link"
+              >
+                {report.description}
+              </Link>
+            </h3>
             
             <div className="report-card-details">
               <p>
@@ -113,6 +116,7 @@ function ArchivePage() {
 
             {report.status === "draft" && (
               <Button
+              className="file-report-button"
               onClick={() => handleFileReport(report.id)}
               >
                 File report
