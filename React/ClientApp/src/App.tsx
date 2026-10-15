@@ -64,7 +64,7 @@ function App() {
   }),[];
   return (
     <div className="page">
-      {isMobile && (
+      {isMobile && !collapsed && (
         <div className="sidebar-backdrop" onClick={() => setCollapsed(true)} />
       )}
       <nav className={`sidebar${collapsed ? " sidebar--collapsed" : ""}${isMobile ? " sidebar--mobile" : ""}`}>
