@@ -1,6 +1,7 @@
 import Button from "../ui/button/button";
 import { saveGearItem, type GearItem } from "../../services/gearRepository";
 import "./gearForm.css";
+import { useState } from "react";
 
 interface GearFormProps {
     onCancel: () => void;
@@ -8,6 +9,17 @@ interface GearFormProps {
 }
 
 function GearForm({ onCancel, onSaved }: GearFormProps) {
+    const [ imageUrl, setImageUrl ] = useState<string | undefined>(undefined);
+
+    function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
+        const file = event.target.files?.[0];
+
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => setImageUrl(reader.result as string);
+        reader.readAsDataURL(file);
+    }
+
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
@@ -16,11 +28,16 @@ function GearForm({ onCancel, onSaved }: GearFormProps) {
             name: String(formData.get("name")).trim(),
             kind: String(formData.get("kind")),
             condition: String(formData.get("condition")),
+            description: String(formData.get("description")).trim(),
             dangerous: formData.get("dangerous") === "on",
             retired: false,
+            loanedTo: null,
+            imageUrl: imageUrl
         }
         saveGearItem(item);
         onSaved(item);
+        event.currentTarget.reset();
+        setImageUrl(undefined);
 
         event.currentTarget.reset();
     }
@@ -30,6 +47,10 @@ function GearForm({ onCancel, onSaved }: GearFormProps) {
             <div className="form-group">
                 <label htmlFor="gearName">Naam</label>
                 <input type="text" id="gearName" name="name" placeholder="Naam van de uitrusting" required />
+            </div>
+            <div className="form-group">
+                <label htmlFor="gearDescription">Beschrijving</label>
+                <textarea id="gearDescription" name="description" placeholder="Beschrijving van de uitrusting" required></textarea>
             </div>
             <div className="form-group">
                 <label htmlFor="gearKind">Soort</label>
@@ -54,6 +75,12 @@ function GearForm({ onCancel, onSaved }: GearFormProps) {
                     <option value="worn">Versleten</option>
                     <option value="damaged">Beschadigd</option>
                 </select>
+            </div>
+
+            <div className="form-group">
+                <label htmlFor="gearImage">Afbeelding</label>
+                <input type="file" id="gearImage" name="image" accept="image/*" onChange={handleImageChange} />
+                {imageUrl && <img src={imageUrl} alt="Preview" className="image-preview" />}
             </div>
 
             <fieldset className="checkbox-group">

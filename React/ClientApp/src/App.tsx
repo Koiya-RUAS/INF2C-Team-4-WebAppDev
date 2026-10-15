@@ -3,6 +3,7 @@ import ArmoryPage from "./pages/armoryPage";
 import "./global.css";
 import QuestPage from "./pages/questPage";
 import Button from "./components/ui/button/button";
+import GearDetailPage from "./pages/detailGear/gearDetailPage";
 
 function ArchivePage() {
   return (
@@ -59,6 +60,7 @@ function App() {
           <Route path="/armory" element={<ArmoryPage />} />
           <Route path="/quest" element={<QuestPage />} />
           <Route path="/archive" element={<ArchivePage />} />
+          <Route path="/armory/:id" element={<GearDetailPage />} />
         </Routes>
       </main>
     </div>

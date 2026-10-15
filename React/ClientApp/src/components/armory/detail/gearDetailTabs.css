@@ -1,0 +1,130 @@
+.gear-detail-tabs {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.gear-detail-tab-list {
+    display: flex;
+    gap: 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.gear-detail-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.75rem 0;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    color: var(--color-text-muted);
+    font-family: inherit;
+    cursor: pointer;
+    transition: color 200ms ease, border-color 200ms ease;
+}
+
+.gear-detail-tab:hover,
+.gear-detail-tab:focus-visible {
+    color: var(--color-primary);
+}
+
+.gear-detail-tab.is-active {
+    border-bottom-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.gear-detail-tab-panel {
+    padding-top: 1.5rem;
+}
+
+.gear-detail-history-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 3rem;
+}
+
+.gear-detail-history-return,
+.gear-detail-history-list {
+    min-width: 0;
+}
+
+.gear-detail-eyebrow {
+    color: var(--color-text-muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.gear-detail-history-header h3 {
+    margin: 0.75rem 0 0.35rem;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.gear-detail-history-header p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+.gear-detail-history-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.gear-detail-history-heading h3 {
+    margin: 0;
+}
+
+.gear-detail-history-heading span {
+    color: var(--color-text-muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.gear-detail-history-state {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem !important;
+}
+
+.gear-detail-history-state svg {
+    flex-shrink: 0;
+}
+
+.gear-detail-condition-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 3rem;
+}
+
+.gear-detail-condition-list p {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+.gear-detail-condition-list svg {
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    color: var(--color-success)
+}
+
+@media (max-width: 800px) {
+    .gear-detail-history-header,
+    .gear-detail-condition-list {
+        grid-template-columns: 1fr;
+    }
+
+    .gear-detail-history-header {
+        gap: 2rem;
+    }
+
+}

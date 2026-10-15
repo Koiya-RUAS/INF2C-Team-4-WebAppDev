@@ -1,0 +1,104 @@
+.gear-card {
+    gap: 0.75rem;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.gear-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgb(42 33 25 / 15%);
+}
+.gear-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.gear-card-label {
+    color: var(--color-text-muted);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.gear-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.gear-card-title {
+    margin-bottom: 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 1.4rem;
+    line-height: 1.2;
+}
+
+.gear-card-image {
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+}
+
+.gear-card-image .media-frame {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+.gear-card-facts {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.gear-card-fact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.gear-card-fact dt {
+    color: var(--color-text-muted);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.gear-card-fact dd {
+    margin: 0;
+}
+
+.gear-card-fact-end {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.gear-card-action {
+    align-self: flex-start;
+    width: 100%;
+    padding: 0.6rem 0.7rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.2rem;
+    color: var(--color-primary);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 200ms ease, color 200ms ease;
+}
+
+.gear-card-action:hover,
+.gear-card-action:focus-visible {
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+}
+
+.gear-card-row-badge {
+    display: none;
+}

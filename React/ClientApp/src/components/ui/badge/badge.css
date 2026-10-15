@@ -1,0 +1,23 @@
+.badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid currentColor;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-radius: 0.25rem;
+}
+
+.badge-neutral {
+    color: var(--color-text-muted);
+    border-color: var(--color-border);
+}
+
+.badge-danger {
+    color: var(--color-danger);
+    border-color: var(--color-danger);
+}
+

@@ -14,6 +14,9 @@
     width: 100%;
     max-width: 600px;
     max-height: calc(100dvh - 3rem);
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100dvh - 3rem);
     overflow-y: auto;
     scrollbar-width: none;
     background-color: var(--color-surface-raised);
@@ -79,6 +82,7 @@
 
 .modal-content {
     padding: 1.25rem;
+    overflow-y: auto;
 }
 
 @keyframes modal-overlay-in {
