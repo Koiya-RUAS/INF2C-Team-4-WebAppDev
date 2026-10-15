@@ -16,6 +16,7 @@ const dummyGear: GearItem[] = [
     condition: "good",
     dangerous: false,
     retired: false,
+    loanedTo: null
   },
   {
     id: "2",
@@ -24,6 +25,7 @@ const dummyGear: GearItem[] = [
     condition: "new",
     dangerous: false,
     retired: false,
+    loanedTo: null
   },
   {
     id: "3",
@@ -32,6 +34,7 @@ const dummyGear: GearItem[] = [
     condition: "worn",
     dangerous: true,
     retired: false,
+    loanedTo: null
   },
   {
     id: "4",
@@ -40,7 +43,8 @@ const dummyGear: GearItem[] = [
     condition: "damaged",
     dangerous: false,
     retired: true,
-  }
+    loanedTo: null
+  } 
 ]
 
 const viewModeStorageKey = "armory-view-mode";

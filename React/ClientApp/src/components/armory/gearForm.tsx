@@ -18,6 +18,7 @@ function GearForm({ onCancel, onSaved }: GearFormProps) {
             condition: String(formData.get("condition")),
             dangerous: formData.get("dangerous") === "on",
             retired: false,
+            loanedTo: null
         }
         saveGearItem(item);
         onSaved(item);
