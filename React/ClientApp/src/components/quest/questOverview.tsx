@@ -1,48 +1,246 @@
+import { useState } from "react";
+import Button from "../ui/button/button";
+import {
+  questCreatures,
+  questMembers,
+  type Quest,
+  type QuestMember,
+} from "../../services/questRepository";
 import "./questOverview.css";
 
-const temporaryQuests = [
-  {
-    id: "quest-1",
-    village: "Dorp 1",
-    description: "Activiteit gemeld.",
-    creature: "Wezen 1",
-    biome: "Swamp",
-    departureDate: "2026-10-14",
-    durationDays: 2,
-    partySize: 6,
-    confirmedMembers: 3,
-    leader: "Lid 7",
-    dangerous: true,
-  },
-  {
-    id: "quest-2",
-    village: "Dorp 2",
-    description: "Sporen gemeld.",
-    creature: "Wezen 3",
-    biome: "Forest",
-    departureDate: "2026-10-17",
-    durationDays: 4,
-    partySize: 4,
-    confirmedMembers: 2,
-    leader: "Lid 12",
-    dangerous: true,
-  },
-  {
-    id: "quest-3",
-    village: "Dorp 3",
-    description: "Handelskar vermist.",
-    creature: null,
-    biome: null,
-    departureDate: "2026-10-20",
-    durationDays: 3,
-    partySize: 8,
-    confirmedMembers: 5,
-    leader: "Lid 03",
-    dangerous: false,
-  },
-];
+interface QuestOverviewProps {
+  quests: Quest[];
+  currentMember: QuestMember;
+  onRequest: (questId: string) => void;
+  onConfirm: (questId: string, requestId: string) => void;
+  onEdit: (quest: Quest) => void;
+  onCancelQuest: (quest: Quest) => void;
+  onTransfer: (questId: string, memberId: string) => void;
+}
 
-function QuestOverview() {
+interface QuestCardProps {
+  quest: Quest;
+  currentMember: QuestMember;
+  today: string;
+  onRequest: (questId: string) => void;
+  onConfirm: (questId: string, requestId: string) => void;
+  onEdit: (quest: Quest) => void;
+  onCancelQuest: (quest: Quest) => void;
+  onTransfer: (questId: string, memberId: string) => void;
+}
+
+function getCreature(creatureId: string | null) {
+  return questCreatures.find((creature) => creature.id === creatureId);
+}
+
+function getLocalToday(): string {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat("nl-NL", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(date);
+}
+
+function getAvailableMembers(quest: Quest): QuestMember[] {
+  return quest.requests
+    .filter((request) => request.confirmed)
+    .map((request) =>
+      questMembers.find((member) => member.id === request.memberId),
+    )
+    .filter((member): member is QuestMember => member !== undefined);
+}
+
+function QuestCard({
+  quest,
+  currentMember,
+  today,
+  onRequest,
+  onConfirm,
+  onEdit,
+  onCancelQuest,
+  onTransfer,
+}: QuestCardProps) {
+  const [transferTarget, setTransferTarget] = useState("");
+  const leader = questMembers.find((member) => member.id === quest.leaderId);
+  const creature = getCreature(quest.creatureId);
+  const confirmedRequests = quest.requests.filter(
+    (request) => request.confirmed,
+  );
+  const currentRequest = quest.requests.find(
+    (request) => request.memberId === currentMember.id,
+  );
+  const isLeader = quest.leaderId === currentMember.id;
+  const hasDeparted = quest.departureDate <= today;
+  const canRequest =
+    !isLeader && !currentRequest && !quest.cancelled && !hasDeparted;
+  const canConfirm =
+    isLeader &&
+    !quest.cancelled &&
+    !hasDeparted &&
+    confirmedRequests.length + 1 < quest.partySize;
+  const availableMembers = getAvailableMembers(quest);
+  const departure = new Date(`${quest.departureDate}T00:00:00`);
+  const returnDate = new Date(departure);
+  returnDate.setDate(returnDate.getDate() + quest.durationDays);
+
+  function handleTransfer(): void {
+    if (!transferTarget) {
+      return;
+    }
+    onTransfer(quest.id, transferTarget);
+    setTransferTarget("");
+  }
+
+  return (
+    <article
+      className={`quest-card${quest.cancelled ? " quest-card-cancelled" : ""}`}
+    >
+      <div className="quest-card-title">
+        <h3>{quest.village}</h3>
+        {quest.cancelled && (
+          <span className="quest-status cancelled">Geannuleerd</span>
+        )}
+      </div>
+      <p>{quest.areaDescription}</p>
+      {creature && (
+        <p>
+          Wezen: {creature.name} ({creature.region})
+          {creature.dangerous && " - Gevaarlijk"}
+        </p>
+      )}
+      <p>Vertrek: {formatDate(departure)}</p>
+      <p>
+        Verwachte terugkomst: {formatDate(returnDate)} ({quest.durationDays}{" "}
+        dagen)
+      </p>
+      <p>
+        Plekken: {confirmedRequests.length + 1} van {quest.partySize} bezet
+      </p>
+      <p>
+        Leider: {leader?.name ?? "Onbekend"}
+        {leader?.trained ? " (getraind)" : ""}
+      </p>
+      <p>
+        Status:{" "}
+        {quest.cancelled
+          ? "Geannuleerd"
+          : creature?.dangerous
+            ? "Gevaarlijke quest"
+            : "Reguliere quest"}
+      </p>
+
+      {isLeader && (
+        <div className="quest-requests">
+          <h4>Aanvragen</h4>
+          {quest.requests.length === 0 ? (
+            <p>Er zijn nog geen aanvragen.</p>
+          ) : (
+            <ul>
+              {quest.requests.map((request) => {
+                const member = questMembers.find(
+                  (candidate) => candidate.id === request.memberId,
+                );
+                const canJoin =
+                  !creature?.dangerous || Boolean(member?.trained);
+
+                return (
+                  <li key={request.id}>
+                    <span>
+                      {member?.name ?? "Onbekend lid"}
+                      {member?.trained ? " (getraind)" : ""}:{" "}
+                      {request.confirmed ? "Bevestigd" : "Aanvraag"}
+                    </span>
+                    {!request.confirmed && canConfirm && (
+                      <Button
+                        size="small"
+                        onClick={() => onConfirm(quest.id, request.id)}
+                        disabled={!canJoin}
+                      >
+                        Bevestigen
+                      </Button>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
+      )}
+
+      {!isLeader && currentRequest && !quest.cancelled && (
+        <p className="quest-request-status" role="status">
+          {currentRequest.confirmed
+            ? "Je plek is bevestigd."
+            : hasDeparted
+              ? "Je aanvraag is niet voor vertrek bevestigd; je blijft thuis."
+              : "Je aanvraag wacht op bevestiging van de leider."}
+        </p>
+      )}
+      {canRequest && (
+        <Button onClick={() => onRequest(quest.id)}>Vraag een plek aan</Button>
+      )}
+
+      {isLeader && !quest.cancelled && (
+        <div className="quest-leader-actions">
+          <Button variant="secondary" onClick={() => onEdit(quest)}>
+            Quest wijzigen
+          </Button>
+          <Button variant="danger" onClick={() => onCancelQuest(quest)}>
+            Quest annuleren
+          </Button>
+          {availableMembers.length > 0 && (
+            <div className="quest-transfer">
+              <label htmlFor={`transfer-${quest.id}`}>
+                Leiderschap overdragen
+              </label>
+              <div>
+                <select
+                  id={`transfer-${quest.id}`}
+                  value={transferTarget}
+                  onChange={(event) => setTransferTarget(event.target.value)}
+                >
+                  <option value="">Kies een bevestigd lid</option>
+                  {availableMembers.map((member) => (
+                    <option key={member.id} value={member.id}>
+                      {member.name}
+                    </option>
+                  ))}
+                </select>
+                <Button
+                  size="small"
+                  disabled={!transferTarget}
+                  onClick={handleTransfer}
+                >
+                  Overdragen
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </article>
+  );
+}
+
+function QuestOverview({
+  quests,
+  currentMember,
+  onRequest,
+  onConfirm,
+  onEdit,
+  onCancelQuest,
+  onTransfer,
+}: QuestOverviewProps) {
+  const today = getLocalToday();
+
   return (
     <section className="quest-overview" aria-labelledby="quest-overview-title">
       <div className="quest-overview-heading">
@@ -52,36 +250,25 @@ function QuestOverview() {
         </div>
       </div>
 
-      <div className="quest-grid">
-        {temporaryQuests.map((quest) => (
-          <article className="quest-card" key={quest.id}>
-            <h3>{quest.village}</h3>
-            <p>{quest.description}</p>
-
-            {quest.creature && (
-              <p>
-                Wezen: {quest.creature} ({quest.biome})
-              </p>
-            )}
-            <p>
-              Vertrek:{" "}
-              {new Intl.DateTimeFormat("nl-NL", {
-                day: "numeric",
-                month: "long",
-              }).format(new Date(`${quest.departureDate}T00:00:00`))}
-            </p>
-            <p>Duur: {quest.durationDays} dagen</p>
-            <p>
-              Plekken: {quest.confirmedMembers} van {quest.partySize} bevestigd
-            </p>
-            <p>Leider: {quest.leader}</p>
-            <p>
-              Status:{" "}
-              {quest.dangerous ? "Gevaarlijk wezen" : "Geen wezen bekend"}
-            </p>
-          </article>
-        ))}
-      </div>
+      {quests.length === 0 ? (
+        <p className="quest-empty">Er zijn nog geen quests geplaatst.</p>
+      ) : (
+        <div className="quest-grid">
+          {quests.map((quest) => (
+            <QuestCard
+              key={quest.id}
+              quest={quest}
+              currentMember={currentMember}
+              today={today}
+              onRequest={onRequest}
+              onConfirm={onConfirm}
+              onEdit={onEdit}
+              onCancelQuest={onCancelQuest}
+              onTransfer={onTransfer}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

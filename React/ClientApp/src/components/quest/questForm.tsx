@@ -1,80 +1,80 @@
-import { useState, type FormEvent, useEffect } from "react";
+import { useState, type FormEvent } from "react";
 import Button from "../ui/button/button";
+import {
+  questCreatures,
+  type Quest,
+  type QuestDetails,
+  type QuestMember,
+} from "../../services/questRepository";
 import "./questForm.css";
 
-const temporaryCreatures = [
-  { id: "marsh-wyvern", name: "Wezen 1", region: "Swamp", dangerous: true },
-  {
-    id: "mill-ghost",
-    name: "Wezen 2",
-    region: "Plains",
-    dangerous: true,
-  },
-  {
-    id: "forest-road-wolves",
-    name: "Wezen 3",
-    region: "Forest",
-    dangerous: true,
-  },
-  {
-    id: "northern-range-wolves",
-    name: "Wezen 4",
-    region: "Snowy Taiga",
-    dangerous: true,
-  },
-  {
-    id: "western-meadows-rabbit",
-    name: "Wezen 5",
-    region: "Meadow",
-    dangerous: false,
-  },
-];
-
 interface QuestFormProps {
+  member: QuestMember;
+  initialQuest?: Quest;
   onCancel: () => void;
+  onSave: (details: QuestDetails) => string | null;
 }
 
-function QuestForm({ onCancel }: QuestFormProps) {
-  const [hasCreature, setHasCreature] = useState(false);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [daysBetween, setDaysBetween] = useState<number | null>(null);
+function getDepartureDate(): string {
+  const date = new Date();
+  date.setDate(date.getDate() + 1);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
 
-  useEffect(() => {
-    if (!startDate || !endDate) {
-      setDaysBetween(null);
-      return;
-    }
+function getQuestDetails(
+  formData: FormData,
+  hasCreature: boolean,
+): QuestDetails {
+  return {
+    village: String(formData.get("village")).trim(),
+    areaDescription: String(formData.get("areaDescription")).trim(),
+    creatureId: hasCreature ? String(formData.get("creatureId")) : null,
+    departureDate: String(formData.get("departureDate")),
+    durationDays: Number(formData.get("durationDays")),
+    partySize: Number(formData.get("partySize")),
+  };
+}
 
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+function QuestForm({ member, initialQuest, onCancel, onSave }: QuestFormProps) {
+  const [hasCreature, setHasCreature] = useState(
+    Boolean(initialQuest?.creatureId),
+  );
+  const [error, setError] = useState("");
+  const isEditing = Boolean(initialQuest);
 
-    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
-      setDaysBetween(null);
-      return;
-    }
-
-    const diff = Math.abs(end.getTime() - start.getTime());
-    setDaysBetween(Math.ceil(diff / (1000 * 60 * 60 * 24)));
-  }, [startDate, endDate]);
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const saveError = onSave(getQuestDetails(formData, hasCreature));
+    setError(saveError ?? "");
   }
 
   return (
     <form className="quest-form" onSubmit={handleSubmit}>
       <div className="form-group">
         <label htmlFor="village-name">Dorp</label>
-        <input type="text" id="village-name" name="village" required />
+        <input
+          type="text"
+          id="village-name"
+          name="village"
+          defaultValue={initialQuest?.village}
+          maxLength={100}
+          required
+        />
       </div>
 
       <div className="form-group">
-        <label htmlFor="description-quest">Beschrijving gebied</label>
+        <label htmlFor="description-quest">Beschrijving van het gebied</label>
         <textarea
           id="description-quest"
           name="areaDescription"
           rows={3}
+          defaultValue={initialQuest?.areaDescription}
+          maxLength={1000}
           required
         />
       </div>
@@ -85,11 +85,10 @@ function QuestForm({ onCancel }: QuestFormProps) {
           <input
             type="checkbox"
             id="creature"
-            name="creature"
             checked={hasCreature}
             onChange={(event) => setHasCreature(event.target.checked)}
           />
-          Is er een wezen aanwezig?
+          Er is een wezen aanwezig
         </label>
 
         {hasCreature && (
@@ -97,74 +96,75 @@ function QuestForm({ onCancel }: QuestFormProps) {
             <label htmlFor="creature-choice">Wezen uit de bestiary</label>
             <select
               id="creature-choice"
-              name="creature"
-              defaultValue=""
+              name="creatureId"
+              defaultValue={initialQuest?.creatureId ?? ""}
               required
             >
               <option value="">Kies een wezen</option>
-              {temporaryCreatures.map((creature) => (
+              {questCreatures.map((creature) => (
                 <option key={creature.id} value={creature.id}>
                   {creature.name} - {creature.region}
                   {creature.dangerous ? " (gevaarlijk)" : ""}
                 </option>
               ))}
             </select>
+            {!member.trained && (
+              <p className="form-help">
+                Een gevaarlijke quest moet worden geleid door een getraind lid.
+              </p>
+            )}
           </div>
         )}
       </fieldset>
 
-      <div className="date-fields">
-        <div className="form-group">
-          <label htmlFor="date-start">Vertrekdatum</label>
-          <input
-            type="date"
-            id="date-start"
-            name="date-start"
-            value={startDate}
-            onChange={(event) => setStartDate(event.target.value)}
-            max={endDate || undefined}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="date-end">Einddatum</label>
-          <input
-            type="date"
-            id="date-end"
-            name="date-end"
-            value={endDate}
-            onChange={(event) => setEndDate(event.target.value)}
-            min={startDate || undefined}
-            required
-          />
-        </div>
+      <div className="form-group">
+        <label htmlFor="departure-date">Vertrekdatum</label>
+        <input
+          type="date"
+          id="departure-date"
+          name="departureDate"
+          min={getDepartureDate()}
+          defaultValue={initialQuest?.departureDate}
+          required
+        />
       </div>
 
       <div className="quest-end">
         <div className="form-group">
-          <label htmlFor="days-quest">Aantal dagen</label>
-          <output id="days-quest">
-            {daysBetween !== null && (
-              <div className="result">
-                <h3>{daysBetween} dagen</h3>
-              </div>
-            )}
-          </output>
-        </div>
-        <div className="form-group">
-          <label htmlFor="positions-quest">Aantal plekken</label>
+          <label htmlFor="duration-days">Aantal dagen</label>
           <input
             type="number"
-            id="positions-quest"
-            name="partySize"
+            id="duration-days"
+            name="durationDays"
             min={1}
+            defaultValue={initialQuest?.durationDays ?? 1}
             required
           />
         </div>
+        <div className="form-group">
+          <label htmlFor="party-size">Partijgrootte</label>
+          <input
+            type="number"
+            id="party-size"
+            name="partySize"
+            min={1}
+            defaultValue={initialQuest?.partySize ?? 4}
+            required
+          />
+          <p className="form-help">Inclusief de leider.</p>
+        </div>
       </div>
 
+      {error && (
+        <p className="form-error" role="alert">
+          {error}
+        </p>
+      )}
+
       <div className="modal-actions">
-        <Button type="submit">Opslaan</Button>
+        <Button type="submit">
+          {isEditing ? "Wijzigingen opslaan" : "Quest plaatsen"}
+        </Button>
         <Button type="button" variant="secondary" onClick={onCancel}>
           Annuleren
         </Button>
