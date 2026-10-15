@@ -1,0 +1,107 @@
+.quest-form .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.quest-form label,
+.quest-form legend {
+  color: var(--color-text);
+  font-family: "Jetbrains Mono", monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.quest-form .form-group > label {
+  display: block;
+  margin-bottom: 0.45rem;
+}
+
+.quest-form input[type="text"],
+.quest-form input[type="date"],
+.quest-form input[type="number"],
+.quest-form textarea {
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-family: "Spectral", serif;
+  font-size: 1rem;
+}
+
+.quest-form textarea {
+  resize: vertical;
+}
+
+.quest-form input:focus,
+.quest-form textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(138, 59, 44, 0.12);
+  outline: none;
+}
+
+.quest-form .checkbox-group {
+  margin-bottom: 1.25rem;
+  padding: 1rem;
+  background-color: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+}
+
+.quest-form .checkbox-group legend {
+  padding: 0 0.35rem;
+}
+
+.quest-form .checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+.quest-form .checkbox-option input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-primary);
+}
+
+.quest-form .creature-details {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.quest-form .date-fields,
+.quest-form .quest-end {
+  display: grid;
+  gap: 0 1rem;
+}
+
+.quest-form .date-fields {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.quest-form .quest-end {
+  grid-template-columns: 1fr 1fr;
+}
+
+.quest-form output {
+  display: block;
+  min-height: 2.9rem;
+  padding: 0.55rem 0.85rem;
+  color: var(--color-text);
+}
+
+.quest-form .modal-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+@media (max-width: 480px) {
+  .quest-form .date-fields,
+  .quest-form .quest-end {
+    grid-template-columns: 1fr;
+  }
+}
