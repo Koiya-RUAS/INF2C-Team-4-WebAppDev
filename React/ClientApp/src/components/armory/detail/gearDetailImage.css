@@ -1,0 +1,13 @@
+.gear-detail-image-section {
+    width: 100%;
+}
+
+.gear-detail-image {
+    width: 100%;
+}
+
+.gear-detail-image .media-frame {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}

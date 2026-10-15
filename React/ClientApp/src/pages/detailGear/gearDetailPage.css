@@ -1,0 +1,19 @@
+.gear-detail-page {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.gear-detail-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 3rem;
+}
+
+@media (max-width: 800px) {
+    .gear-detail-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
