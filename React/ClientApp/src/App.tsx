@@ -1,4 +1,4 @@
-import { NavLink, Link, Route, Routes } from "react-router";
+import { NavLink, Route, Routes } from "react-router";
 import ArmoryPage from "./pages/armoryPage";
 import "./global.css";
 import QuestPage from "./pages/questPage";
@@ -56,11 +56,11 @@ function App() {
 
       <main className="content">
         <Routes>
-            <Route path="/" element={<ArchivePage />} />
-            <Route path="/armory" element={<ArmoryPage />} />
-            <Route path="/quest" element={<QuestPage />} />
-            <Route path="/archive" element={<ArchivePage />} />
-            <Route path="/armory/:id" element={<GearDetailPage />} />
+          <Route path="/" element={<ArchivePage />} />
+          <Route path="/armory" element={<ArmoryPage />} />
+          <Route path="/quest" element={<QuestPage />} />
+          <Route path="/archive" element={<ArchivePage />} />
+          <Route path="/armory/:id" element={<GearDetailPage />} />
         </Routes>
       </main>
     </div>

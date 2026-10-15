@@ -18,6 +18,7 @@
 .quest-form input[type="text"],
 .quest-form input[type="date"],
 .quest-form input[type="number"],
+.quest-form select,
 .quest-form textarea {
   width: 100%;
   padding: 0.75rem 0.85rem;
@@ -34,6 +35,7 @@
 }
 
 .quest-form input:focus,
+.quest-form select:focus,
 .quest-form textarea:focus {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 2px rgba(138, 59, 44, 0.12);
@@ -68,6 +70,19 @@
 .quest-form .creature-details {
   margin-top: 1rem;
   margin-bottom: 0;
+}
+
+.quest-form .form-help {
+  margin-top: 0.35rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.quest-form .form-error {
+  padding: 0.65rem 0.8rem;
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger);
+  border-radius: 4px;
 }
 
 .quest-form .date-fields,
