@@ -4,6 +4,17 @@ import "./global.css";
 import QuestPage from "./pages/questPage";
 import Button from "./components/ui/button/button";
 import GearDetailPage from "./pages/detailGear/gearDetailPage";
+import { useState } from "react";
+import { Home, Sword, ScrollText, Trees, BookOpen, Bug, ChevronLeft, ChevronRight } from "lucide-react";
+
+const navItems = [
+  { to: "/", label: "Hall", icon: Home },
+  { to: "/armory", label: "Armory", icon: Sword },
+  { to: "/quest", label: "Quest Board", icon: ScrollText },
+  { to: "/yard", label: "Yard", icon: Trees },
+  { to: "/archive", label: "Archive", icon: BookOpen },
+  { to: "/bestiary", label: "Bestiary", icon: Bug },
+]
 
 function ArchivePage() {
   return (
@@ -39,18 +50,24 @@ function ArchivePage() {
 }
 
 function App() {
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
     <div className="page">
-      <nav className="sidebar">
-        <h2>Hollowmere</h2>
-
+      <nav className={`sidebar${collapsed ? " sidebar--collapsed" : ""}`}>
+        <div className="sidebar-header">
+          {!collapsed && <h2>Hollowmere</h2>}
+          <button className="sidebar-toggle" onClick={() => setCollapsed((c) => !c)} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}>
+            {collapsed ? <ChevronRight size={20} strokeWidth={1.8} /> : <ChevronLeft size={20} strokeWidth={1.8} />}              
+          </button>
+        </div>
         <div className="pages-on-menu">
-          <NavLink to="/">Hall</NavLink>
-          <NavLink to="/armory">Armory</NavLink>
-          <NavLink to="/quest">Quest Board</NavLink>
-          <NavLink to="/yard">Yard</NavLink>
-          <NavLink to="/archive">Archive</NavLink>
-          <NavLink to="/bestiary">Bestiary</NavLink>
+          {navItems.map(({to, label, icon: Icon}) => (
+            <NavLink key={to} to={to} title={collapsed ? label : undefined}>
+              <Icon size={18} className="nav-icon" />
+              {!collapsed && <span>{label}</span>}
+            </NavLink>
+          ))}
         </div>
       </nav>
 
