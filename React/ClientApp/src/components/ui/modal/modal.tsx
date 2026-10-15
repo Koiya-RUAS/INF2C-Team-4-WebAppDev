@@ -32,7 +32,7 @@ function Modal({
         document.body.style.overflow = "hidden";
 
         const focusableElements = modalRef.current?.querySelectorAll<HTMLElement>(
-            'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
+            'a[href], button, textarea, input[type="text"], input[type="date"], input[type="number"], input[type="radio"], input[type="checkbox"], select'
         );
         focusableElements?.[0]?.focus();
 
@@ -45,7 +45,7 @@ function Modal({
 
             const elements = Array.from(
                 modalRef.current.querySelectorAll<HTMLElement>(
-                    'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
+                    'a[href], button, textarea, input[type="text"], input[type="date"], input[type="number"], input[type="radio"], input[type="checkbox"], select'
                 )
             );
             if (elements.length === 0) return;

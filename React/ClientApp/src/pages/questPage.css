@@ -1,0 +1,72 @@
+.quest-page {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 2rem;
+}
+
+.quest-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 2rem;
+}
+
+.quest-heading-copy {
+	display: grid;
+	justify-items: start;
+	gap: 0.25rem;
+}
+
+.quest-heading-copy h1,
+.quest-heading-copy p {
+	margin-bottom: 0;
+}
+
+.quest-heading-copy label {
+	font-weight: 600;
+}
+
+.quest-heading-copy select {
+	padding: 0.45rem 0.6rem;
+	color: var(--color-text);
+	background: var(--color-bg);
+	border: 1px solid var(--color-border);
+	border-radius: 4px;
+	font: inherit;
+}
+
+.quest-heading-copy p,
+.quest-notice {
+	color: var(--color-text-muted);
+}
+
+.quest-notice {
+	margin-bottom: 1rem;
+	padding: 0.65rem 0.8rem;
+	background: var(--color-bg-subtle);
+	border-left: 3px solid var(--color-primary);
+}
+
+.quest-error {
+	color: var(--color-danger);
+	border-left-color: var(--color-danger);
+}
+
+.quest-header h1,
+.quest-overview-heading h2,
+.quest-card h3 {
+	margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+	.quest-page {
+		padding: 1.25rem;
+	}
+
+	.quest-header {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+}
