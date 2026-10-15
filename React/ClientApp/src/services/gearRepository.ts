@@ -5,6 +5,7 @@ export interface GearItem {
     condition: string;
     dangerous: boolean;
     retired: boolean;
+    loanedTo: String | null;
 }
 
 const storageKey = "gear";

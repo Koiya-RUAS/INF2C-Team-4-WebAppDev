@@ -1,0 +1,85 @@
+.gear-detail-info {
+    width: 100%;
+}
+
+.gear-detail-info h2 {
+    margin: 0 0 1rem;
+}
+
+.gear-detail-facts {
+    margin: 0;
+}
+
+.gear-detail-fact {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.gear-detail-fact dt {
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.gear-detail-fact dd {
+    margin: 0;
+    text-align: right;
+}
+
+.gear-detail-training {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.gear-detail-training-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.gear-detail-training-icon {
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    color: var(--color-success);    
+}
+
+.gear-detail-training-text {
+    flex: 1;
+}
+
+.gear-detail-training-title {
+    display: flex;
+    align-items: center;
+}
+
+.gear-detail-training-title h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.gear-detail-training-description p {
+    margin: 0.5rem 0 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.gear-detail-loan {
+    padding-top: 1rem;
+}
+
+.gear-detail-loan-button {
+    justify-content: space-between;
+}
+
+.gear-detail-loan-icon {
+    transition: transform 200ms ease;
+}
+
+.gear-detail-loan-button:hover .gear-detail-loan-icon,
+.gear-detail-loan-button:focus-visible .gear-detail-loan-icon {
+    transform: translateX(0.3rem);
+}
